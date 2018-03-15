@@ -1,21 +1,22 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+This covers the implementation of the HueSLIS python package and overall operation.
 
 ### What is this repository for? ###
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+* Installing the Package
+* Version 0.0.1a
+* Required Dependencies
 
 ### How do I get set up? ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+* Git Pull git@bitbucket.org:briansc2008/hue-sense.git 
+* Ensure you have developer access to both AWS and Google Cloud security keys
+* Install both Google Cloud Speech and AWS Config
+* pip install -r requirements.txt
+* USB Mic
+* Raspberry Pi 3b (with compatible Debian wheezy/jesse OS)
+* Mac Support
 
 ### Contribution guidelines ###
 
@@ -25,5 +26,4 @@ This README would normally document whatever steps are necessary to get your app
 
 ### Who do I talk to? ###
 
-* Repo owner or admin
-* Other community or team contact
+* Contact: brian.schaper@little-bamboo.com

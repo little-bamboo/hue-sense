@@ -81,6 +81,7 @@ def main(args=None):
         # TODO: Build out other exception handlers
         except KeyboardInterrupt:
             print("KeyboardInterrupt called")
+            exit()
         except Exception, e:
             print("Exception: {0}".format(e))
         finally:
@@ -88,5 +89,5 @@ def main(args=None):
 
 
 if __name__ == '__main__':
-    # os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "configs/HuePi.json"
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "configs/HuePi.json"
     sys.exit(main(sys.argv[1:]) or 0)

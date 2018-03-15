@@ -3,8 +3,8 @@ import requests
 import json
 from colour import Color
 
-
 SENTIMENT_COLORS = {'NEGATIVE': 0, 'NEUTRAL': 42770, 'POSITIVE': 21840}
+
 
 class HueManager(object):
     """Create a Hue Instance to interface with lighting system"""
@@ -28,6 +28,9 @@ class HueManager(object):
         self.bridge = Bridge(self._bridge_ip, self._user_key)
         self.bridge_url = self._bridge_ip + '/api/' + user_key + '/groups/1/action'
 
+        # Ensure lights are on
+        self.light_state(True)
+
     def change_color_sentiment(self, sentiment, sentiment_score):
         print("Sentiment: {0}".format(sentiment))
         print("Sentiment Score: {0}".format(sentiment_score))
@@ -46,7 +49,12 @@ class HueManager(object):
         hue_var = int(c.hsl[0] * 65535)
         sat_var = int(c.hsl[1] * 254)
 
-        color_payload = {"hue":hue_var, "sat":sat_var, "bri":254, "transitiontime":20}
+        color_payload = {"hue": hue_var, "sat": sat_var, "bri": 254, "transitiontime": 20}
         r = requests.put(self.bridge_url, data=json.dumps(color_payload))
         print r.content
 
+    def light_state(self, state):
+        # Detect if lights are on
+        state_payload = {'on': state}
+        r = requests.put(self.bridge_url, data=json.dumps(state_payload))
+        print r.content
