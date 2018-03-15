@@ -43,7 +43,7 @@ def external_audio():
 
 
 def hue_speech_detection():
-    # hue = HueManager(bridge_ip=BRIDGE_IP, user_key=USER_KEY)
+
     comp = ComprehendManager()
 
     # See http://g.co/cloud/speech/docs/languages
