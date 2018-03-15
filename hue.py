@@ -1,5 +1,3 @@
-#!/Users/briansc/anaconda2/envs/hue/bin/python
-
 from qhue import create_new_username, Bridge, QhueException
 import requests
 import json
