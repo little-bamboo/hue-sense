@@ -6,6 +6,9 @@ configs/
 .idea/
 venv/
 
+# Pycharm Files
+*.pyc
+
 # User-specific stuff:
 .idea/**/workspace.xml
 .idea/**/tasks.xml
