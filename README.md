@@ -26,7 +26,7 @@ This covers the implementation of the HueSLIS python package and overall operati
 
 ```
     $ pip install awscli --upgrade --user
- ```
+```
 
 https://docs.aws.amazon.com/cli/latest/userguide/installing.html
 
