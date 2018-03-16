@@ -5,11 +5,14 @@ case "$1" in
     start)
         echo "Starting Hue Sense - python soundcapture.py"
         echo "Setup virtual env"
-
-        python /home/pi/hue_pi/soundcapture.py
+        cd /home/pi/hue-sense/
+        source .env/bin/activate
+        python soundcapture.py
         ;;
     stop)
         echo "Stopping go-hue-go.sh"
+        cd /home/pi/hue-sense/
+        deactivate
         killall soundcapture.py
         ;;
     *)

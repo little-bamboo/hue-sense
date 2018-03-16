@@ -43,7 +43,6 @@ class HueManager(object):
                          "transitiontime": 20}
 
         r = requests.put(self.bridge_url, data=json.dumps(color_payload))
-
         print r.content
 
     def change_color(self, color):
@@ -58,7 +57,7 @@ class HueManager(object):
         print r.content
 
     def light_state(self, state):
-        # Detect if lights are on
+        # Pass light switch
         state_payload = {'on': state}
         r = requests.put(self.bridge_url, data=json.dumps(state_payload))
         print r.content

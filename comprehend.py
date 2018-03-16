@@ -24,6 +24,7 @@ COLOR_LIST = [
     "white"
 ]
 
+
 class ComprehendManager(object):
 
     def __init__(self):
@@ -97,7 +98,6 @@ class ComprehendManager(object):
 
                     sentiment_response = self.comprehend.detect_sentiment(Text=transcript, LanguageCode='en')
 
-                    #  TODO: Add color keyword selection vs sentiment
                     if sentiment_response:
                         sentiment = sentiment_response['Sentiment']
                         sentiment_score = sentiment_response['SentimentScore']

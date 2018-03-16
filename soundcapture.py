@@ -43,7 +43,6 @@ def external_audio():
 
 
 def hue_speech_detection():
-
     comp = ComprehendManager()
 
     # See http://g.co/cloud/speech/docs/languages

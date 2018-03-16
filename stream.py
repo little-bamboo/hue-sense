@@ -4,6 +4,7 @@ from __future__ import division
 import pyaudio
 from six.moves import queue
 
+
 # [END import_libraries]
 
 
@@ -20,6 +21,7 @@ class MicrophoneStream(object):
 
     def __enter__(self):
         self._audio_interface = pyaudio.PyAudio()
+        index = self.get_microphone_index(self._audio_interface)
         self._audio_stream = self._audio_interface.open(
             format=pyaudio.paInt16,
             # The API currently only supports 1-channel (mono) audio
@@ -31,7 +33,7 @@ class MicrophoneStream(object):
             # overflow while the calling thread makes network requests, etc.
             stream_callback=self._fill_buffer,
             # Set the input device index to chosen mic (if default is not working)
-            input_device_index=2
+            input_device_index=index
         )
 
         self.closed = False
@@ -46,6 +48,16 @@ class MicrophoneStream(object):
         # streaming_recognize method will not block the process termination.
         self._buff.put(None)
         self._audio_interface.terminate()
+
+    def get_microphone_index(self, po):
+
+        for index in range(po.get_device_count()):
+            desc = po.get_device_info_by_index(index)
+            if desc["name"] == "record":  # 'record' is default setting in ~/.asoundrc config file
+                # print "DEVICE: %s  INDEX:  %s  RATE:  %s " % (desc["name"], index, int(desc["defaultSampleRate"]))
+                return index
+            else:
+                return 2  # Default index for Logitech Headset on Mac OS X
 
     def _fill_buffer(self, in_data, frame_count, time_info, status_flags):
         """Continuously collect data from the audio stream, into the buffer."""
@@ -73,6 +85,5 @@ class MicrophoneStream(object):
                     break
 
             yield b''.join(data)
-
 
 # [END audio_stream]
