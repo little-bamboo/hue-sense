@@ -33,7 +33,8 @@ class HueManager(object):
 
     # Ensure lights turn off when Hue closes
     def __del__(self):
-        self.light_state(False)
+        # self.light_state(False)
+        print('Removing HueManager')
 
     def change_color_sentiment(self, sentiment, sentiment_score):
         print("Sentiment: {0}".format(sentiment))
