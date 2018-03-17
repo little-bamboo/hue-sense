@@ -81,6 +81,9 @@ def main(args=None):
         except KeyboardInterrupt:
             print("KeyboardInterrupt called")
             exit()
+        except IOError, e:
+            print("Exception: {0}".format(e))
+            exit()
         except Exception, e:
             print("Exception: {0}".format(e))
         finally:
