@@ -6,8 +6,8 @@ import subprocess
 import sys
 import time
 
-from stream import MicrophoneStream
 from comprehend import ComprehendManager
+from stream import MicrophoneStream
 
 from google.cloud import speech
 from google.cloud.speech import enums
@@ -28,7 +28,7 @@ def external_audio():
     filedate = time.strftime("%Y%m%d-%H%M%S")
     filename = root + filedate + ".wav"
 
-    proc = subprocess.Popen(['/bin/bash', 'bash/mic-noise-detection.sh', filename, '0.1'], stdout=subprocess.PIPE)
+    proc = subprocess.Popen(['/bin/bin', 'bin/mic-noise-detection.sh', filename, '0.1'], stdout=subprocess.PIPE)
     result, error = proc.communicate()
     amplitude = float(result)
 
@@ -91,5 +91,5 @@ def main(args=None):
 
 
 if __name__ == '__main__':
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "configs/HuePi.json"
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "../configs/HuePi.json"
     sys.exit(main(sys.argv[1:]) or 0)
