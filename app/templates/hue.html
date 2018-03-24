@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Hue Manager{% endblock %}
+{% block head %}
+{{ super() }}
+<style type="text/css">
+        .important { color: #336699; }
+
+</style>
+{% endblock %}
+{% block content %}
+
+
+<div class="card">
+    <h5 class="card-header">Activate HueSLiS Listener</h5>
+    <div class="card-body">
+        <h5 class="card-title">Turn On/Off </h5>
+        <p class="card-text">Begin streaming audio to detect sentiment and keywords from local speech.</p>
+        <button type="button" class="btn btn-danger btn-lg btn-block" id="soundcapture">Off
+        </button>
+    </div>
+</div>
+
+
+{% endblock %}

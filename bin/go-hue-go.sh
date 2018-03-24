@@ -3,7 +3,7 @@
 
 case "$1" in
     start)
-        echo "Starting Hue Sense - python run.py"
+        echo "Starting Hue Sense - python soundcapture.py"
         echo "Setup virtual env"
         cd /home/pi/hue-sense/
         source .env/bin/activate

@@ -4,6 +4,8 @@ import re
 
 from hue import HueManager, QhueException
 
+
+
 USER_KEY = "OTf6TuWbVekHudvGnPYZauZxkBAtKBojG-idfhr0"
 BRIDGE_IP = "http://10.0.1.2"
 
