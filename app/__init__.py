@@ -31,4 +31,4 @@ def set_sqlite_pragma(dbapi_connection, connection_record):
 """
 
 from app.views import views
-
+# from app.help import help_views

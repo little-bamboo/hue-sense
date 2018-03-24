@@ -1,8 +1,8 @@
 /* BODY Style */
 
 body {
-   min-height: 900px;
-   margin-bottom: 60px;
+   min-height: 800px;
+   margin-bottom: 50px;
    clear: both;
 }
 
@@ -22,13 +22,14 @@ body {
 
 /* PAGINATION Style */
 
-.pagination[style]{
-  list-style-type: none;
-  overflow: hidden;
-  display: inline-flex !important;
-}
 
-.pagination > li a {
-  display: block;
-  padding: 10px;
-}
+
+/* LOADING Style */
+
+div#loading {
+    width: 35px;
+    height: 35px;
+    display: none;
+    background: url(/static/loadingimage.gif) no-repeat;
+    cursor: wait;
+    }

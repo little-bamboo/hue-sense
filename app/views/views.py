@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, jsonify
 from flask_appbuilder.models.sqla.interface import SQLAInterface
 from flask_appbuilder import ModelView, BaseView, AppBuilder, expose, has_access
 from app import appbuilder, db
@@ -21,11 +21,11 @@ from app import appbuilder, db
 class Hue(BaseView):
     route_Base = "/hue"
 
-    @expose('/method1/<string:param1>')
-    def method1(self, param1):
+    @expose('/_toggle_soundcapture/<string:state>')
+    def toggle_soundcapture(self, state):
         # do something with param1
-        # and return it
-        return param1
+        print(state)
+        return jsonify(state)
 
     @expose('/method2/<string:param2>')
     def method2(self, param2):
