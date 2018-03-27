@@ -5,6 +5,9 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 # Your App secret key
 SECRET_KEY = '026b6a35-bc3a-4cc7-addc-879572f67416'
 
+# Google API Key
+GOOGLE_APPLICATION_CREDENTIALS = "configs/HuePi.json"
+
 # The SQLAlchemy connection string.
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')
 #SQLALCHEMY_DATABASE_URI = 'mysql://myapp@localhost/myapp'
@@ -17,7 +20,7 @@ CSRF_ENABLED = True
 # GLOBALS FOR APP Builder 
 #------------------------------
 # Uncomment to setup Your App name
-#APP_NAME = "My App Name"
+APP_NAME = "HueSLiS"
 
 # Uncomment to setup Setup an App icon
 #APP_ICON = "static/img/logo.jpg"
@@ -104,3 +107,5 @@ IMG_UPLOAD_URL = '/static/uploads/'
 
 
 SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+

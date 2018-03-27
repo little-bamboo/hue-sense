@@ -28,9 +28,6 @@ class HueManager(object):
         self.bridge = Bridge(self._bridge_ip, self._user_key)
         self.bridge_url = self._bridge_ip + '/api/' + user_key + '/groups/1/action'
 
-        # Ensure lights are on
-        self.light_state(True)
-
     # Ensure lights turn off when Hue closes
     def __del__(self):
         # self.light_state(False)
