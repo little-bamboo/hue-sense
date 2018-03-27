@@ -65,8 +65,11 @@ class Hue(BaseView):
 
         if state == 'Off':
             self._sc.comp.hue.light_state(True)
+            state = 'On'
         else:
             self._sc.comp.hue.light_state(False)
+            state = 'Off'
+            
         return jsonify(state)
 
     @expose('/')
