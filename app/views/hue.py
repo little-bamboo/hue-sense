@@ -4,7 +4,7 @@ from flask_appbuilder import ModelView, BaseView, AppBuilder, expose, has_access
 from app import appbuilder, db
 
 from app.controllers.soundcapture import SoundCapture
-from multiprocessing import Process
+import threading
 
 """
     Create your Views::
@@ -27,6 +27,8 @@ class Hue(BaseView):
     def __init__(self):
         self._sc = SoundCapture()
         BaseView.__init__(self)
+
+        # Add threading object
 
     def run_soundcapture(self):
         while True:
@@ -51,11 +53,18 @@ class Hue(BaseView):
     def toggle_soundcapture(self, state):
 
         if state == 'Off':
-            self.run_soundcapture()
+            sound_thread = threading.Thread(target=self.run_soundcapture, name='sound_capture_thread')
+            sound_thread.setDaemon(True)
+            sound_thread.start()
+
+            state = 'On'
 
         else:
             # self.sound_process.terminate()
             print "terminate soundcapture"
+            # TODO: Terminate thread based on thread name...?
+
+            state = 'Off'
 
         print(state)
         return jsonify(state)
@@ -69,7 +78,7 @@ class Hue(BaseView):
         else:
             self._sc.comp.hue.light_state(False)
             state = 'Off'
-            
+
         return jsonify(state)
 
     @expose('/')
