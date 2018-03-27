@@ -4,7 +4,9 @@ import re
 
 from hue import HueManager, QhueException
 
-
+import json
+import decimal
+import uuid
 
 USER_KEY = "OTf6TuWbVekHudvGnPYZauZxkBAtKBojG-idfhr0"
 BRIDGE_IP = "http://10.0.1.2"
@@ -31,6 +33,8 @@ class ComprehendManager(object):
 
     def __init__(self):
         self.comprehend = boto3.client(service_name='comprehend', region_name='us-west-2')
+        self.dynamodb = boto3.resource('dynamodb', region_name='us-west-2')
+        self.table = self.dynamodb.Table('hue-sense')
         self.hue = HueManager(bridge_ip=BRIDGE_IP, user_key=USER_KEY)
 
     def listen_sentiment_loop(self, responses):
@@ -101,7 +105,17 @@ class ComprehendManager(object):
                     sentiment_response = self.comprehend.detect_sentiment(Text=transcript, LanguageCode='en')
 
                     if sentiment_response:
+                        sentiment_response['transcript'] = transcript
+                        sentiment_response['language'] = 'en'
                         sentiment = sentiment_response['Sentiment']
                         sentiment_score = sentiment_response['SentimentScore']
+                        sentiment_response['stream-id'] = str(uuid.uuid4())
 
                         self.hue.change_color_sentiment(sentiment, sentiment_score)
+
+                        # Convert floats to decimal
+                        json_str = json.dumps(sentiment_response)
+                        sentiment_score_dict = json.loads(json_str, parse_float=decimal.Decimal)
+                        print sentiment_score_dict
+                        response = self.table.put_item(Item=sentiment_score_dict)
+                        print("dynamodb response: {0}".format(json.dumps(response)))
