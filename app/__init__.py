@@ -12,10 +12,10 @@ logging.getLogger().setLevel(logging.DEBUG)
 
 app = Flask(__name__)
 app.config.from_object('config')
+
 db = SQLA(app)
 
 appbuilder = AppBuilder(app, db.session, indexview=MyIndexView, base_template="base.html")
-
 
 """
 from sqlalchemy.engine import Engine
@@ -30,5 +30,5 @@ def set_sqlite_pragma(dbapi_connection, connection_record):
     cursor.close()
 """
 
-from app.views import views
-# from app.help import help_views
+from app.views import hue
+from app.views import help

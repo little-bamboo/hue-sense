@@ -3,6 +3,9 @@ from flask_appbuilder.models.sqla.interface import SQLAInterface
 from flask_appbuilder import ModelView, BaseView, AppBuilder, expose, has_access
 from app import appbuilder, db
 
+from app.controllers.soundcapture import SoundCapture
+from multiprocessing import Process
+
 """
     Create your Views::
 
@@ -21,44 +24,55 @@ from app import appbuilder, db
 class Hue(BaseView):
     route_Base = "/hue"
 
+    def __init__(self):
+        self._sc = SoundCapture()
+        BaseView.__init__(self)
+
+    def run_soundcapture(self):
+        while True:
+            try:
+                self._sc.comp.hue.light_state(True)
+                self._sc.hue_speech_detection()
+
+            # TODO: Build out other exception handlers
+            except KeyboardInterrupt:
+                print("KeyboardInterrupt called")
+                exit()
+            except IOError, e:
+                print("Exception: {0}".format(e))
+                exit()
+            except Exception, e:
+                print("Exception: {0}".format(e))
+            finally:
+                self._sc.comp.hue.light_state(False)
+                print("Finally...")
+
     @expose('/_toggle_soundcapture/<string:state>')
     def toggle_soundcapture(self, state):
-        # do something with param1
+
+        if state == 'Off':
+            self.run_soundcapture()
+
+        else:
+            # self.sound_process.terminate()
+            print "terminate soundcapture"
+
         print(state)
         return jsonify(state)
 
-    @expose('/method2/<string:param2>')
-    def method2(self, param2):
-        # do something with param2
-        return param2
+    @expose('/_toggle_lights/<string:state>')
+    def toggle_lights(self, state):
+
+        if state == 'Off':
+            self._sc.comp.hue.light_state(True)
+        else:
+            self._sc.comp.hue.light_state(False)
+        return jsonify(state)
 
     @expose('/')
-    @has_access
+    # @has_access
     def default(self):
         return self.render_template('hue.html')
 
 
 appbuilder.add_view(Hue, "Hue", href='/hue', category='Hue')
-
-
-class Help(BaseView):
-    route_Base = "/help"
-
-    @expose('/')
-    @has_access
-    def default(self):
-        return render_template('help.html')
-
-
-appbuilder.add_view(Help, "Help", href='/help', icon="fa-folder-open-o", category="Help", category_icon='fa-envelope')
-
-# """
-#     Application wide 404 error handler
-# """
-#
-# @appbuilder.app.errorhandler(404)
-# def page_not_found(e):
-#     return render_template('404.html', base_template=appbuilder.base_template, appbuilder=appbuilder), 404
-#
-#
-# db.create_all()
